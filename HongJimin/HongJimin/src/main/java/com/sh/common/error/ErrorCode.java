@@ -15,7 +15,8 @@ public enum ErrorCode {
     FIND_BOOK_BY_PRICE_ERROR("가격 조회 중 오류가 발생했습니다."),
     CREATE_ORDER_ERROR("도서 주문서 등록 중 오류가 발생했습니다."),
     CREATE_SELECT_ORDER_ERROR("주문 목록 조회 중 오류가 발생했습니다."),
-    FIND_ORDER_STATUS_ERROR("주문상태별 조회 중 오류가 발생했습니다."), FIND_ORDER_BY_ORDERID_ERROR("주문 아이디로 조회중 오류가 발생했습니다.");
+    FIND_ORDER_STATUS_ERROR("주문상태별 조회 중 오류가 발생했습니다."), FIND_ORDER_BY_ORDERID_ERROR("주문 아이디로 조회중 오류가 발생했습니다."),
+    OUTBOUND_ERROR("출고 처리 중 오류가 발생했습니다.");
 
     @Getter
     final String msg;

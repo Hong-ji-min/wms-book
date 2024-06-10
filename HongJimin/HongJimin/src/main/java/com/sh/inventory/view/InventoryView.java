@@ -1,6 +1,8 @@
 package com.sh.inventory.view;
 
 import com.sh.inventory.controller.InventoryController;
+import com.sh.order.model.entity.Status;
+import com.sh.order.view.OrderResultView;
 
 import java.util.Scanner;
 
@@ -32,7 +34,8 @@ public class InventoryView {
                 break;
             case "3":
                 // 3. 재고 출고
-                inventoryController.outboundInventory();
+                inventoryController.outboundInventory(Status.주문확인중);
+
                 break;
             case "4":
                 // 4. 재고 이동
