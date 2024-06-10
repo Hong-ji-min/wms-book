@@ -3,19 +3,86 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sh.order.model.dao.OrderMapper">
-    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId"> <!-- useGeneratedKeys 를 이용해서 OrderDto의 특정 필드(orderCode)에 넣어줌!-->
+    <insert id="insertOrder" useGeneratedKeys="true"
+            keyProperty="orderId"> <!-- useGeneratedKeys 를 이용해서 OrderDto의 특정 필드(orderCode)에 넣어줌!-->
         insert into
-            tbl_order (orderer_name, orderer_address)
+        tbl_order (orderer_name, orderer_address)
         values (
-            #{ordererName}, #{ordererAddress}
+        #{ordererName}, #{ordererAddress}
         )
     </insert>
     <insert id="insertOrderItem">
         insert into
-            tbl_order_item
+        tbl_order_item
         values(
-            null, #{orderId}, #{bookId}, #{quantity},
+        null, #{orderId}, #{bookId}, #{quantity}
         )
     </insert>
-    
+    <select id="findOrderItem" resultMap="orderMap">
+        select
+        *
+        from
+        tbl_order o
+        join tbl_order_item oi
+        on o.order_id = oi.order_id
+        join tbl_book b
+        on oi.book_id = b.book_id
+        where
+            o.order_id = #{orderId}
+
+    </select>
+    <resultMap id="orderMap" type="com.sh.order.model.entity.Order">
+        <!-- pk값 표현 : id -->
+        <id column="order_id" property="orderId"/>
+        <!-- 나머지 컬럼들 -->
+        <result column="orderer_name" property="ordererName"/>
+        <result column="orderer_address" property="ordererAddress"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="status" property="status"/>
+        <!-- 1 : N 매핑 -->
+        <collection property="orderItemList" ofType="com.sh.order.model.entity.OrderItem">
+            <id column="order_item_id" property="orderItemId"/>
+            <result column="order_id" property="orderId"/>
+            <result column="book_id" property="bookId"/>
+            <result column="quantity" property="quantity"/>
+            <!-- 1 : 1 매핑 -->
+            <association property="book" javaType="com.sh.book.model.entity.Book">
+                <!-- pk값 표현 : id -->
+                <id column="book_id" property="bookId"/>
+                <!-- 나머지 컬럼들 -->
+                <result column="title" property="title"/>
+                <result column="author" property="author"/>
+                <result column="description" property="description"/>
+                <result column="price" property="price"/>
+                <result column="category" property="category"/>
+                <result column="created_at" property="createdAt"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="findByOrderStatus" resultMap="orderMap">
+        select
+        *
+        from
+        tbl_order o
+        join tbl_order_item oi
+        on o.order_id = oi.order_id
+        join tbl_book b
+        on oi.book_id = b.book_id
+        where
+        o.status = #{status}
+    </select>
+    <select id="findOrderByOrderId" resultMap="orderMap">
+        select
+        *
+        from
+        tbl_order o
+        join tbl_order_item oi
+        on o.order_id = oi.order_id
+        join tbl_book b
+        on oi.book_id = b.book_id
+        where
+        o.order_id = #{orderId}
+    </select>
+
 </mapper>

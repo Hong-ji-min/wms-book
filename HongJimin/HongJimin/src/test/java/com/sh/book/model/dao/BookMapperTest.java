@@ -72,7 +72,7 @@ class BookMapperTest {
                             book.getDescription() + "\t\t" +
                             book.getPrice() + "\t\t" +
                             book.getCategory() + "\t\t" +
-                            book.getBookCreatedAt()
+                            book.getCreatedAt()
             );
         }
     }
@@ -96,7 +96,7 @@ class BookMapperTest {
                         book.getDescription() + "\t" +
                         book.getPrice() + "\t" +
                         book.getCategory() + "\t" +
-                        book.getBookCreatedAt()
+                        book.getCreatedAt()
         );
     }
 
@@ -118,7 +118,7 @@ class BookMapperTest {
                         book.getDescription() + "\t" +
                         book.getPrice() + "\t" +
                         book.getCategory() + "\t" +
-                        book.getBookCreatedAt()
+                        book.getCreatedAt()
         );
     }
 
@@ -147,7 +147,7 @@ class BookMapperTest {
                                 book.getDescription() + "\t" +
                                 book.getPrice() + "\t" +
                                 book.getCategory() + "\t" +
-                                book.getBookCreatedAt()
+                                book.getCreatedAt()
                 );
             }
         }
@@ -176,7 +176,7 @@ class BookMapperTest {
                             book.getDescription() + "\t" +
                             book.getPrice() + "\t" +
                             book.getCategory() + "\t" +
-                            book.getBookCreatedAt()
+                            book.getCreatedAt()
             );
         }
     }

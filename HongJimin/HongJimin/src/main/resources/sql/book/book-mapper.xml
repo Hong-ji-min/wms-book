@@ -53,9 +53,9 @@
     </select>
     <insert id="insertBook" useGeneratedKeys="true" >
         insert into
-        tbl_book
+            tbl_book
         values(
-        null, #{title}, #{author}, #{description}, #{price}, #{category}, null
+            null, #{title}, #{author}, #{description}, #{price}, #{category}, now()
         )
     </insert>
     <update id="updateBook">
@@ -69,13 +69,11 @@
             category = #{category}
         where
             book_id = #{bookId}
-
     </update>
     <delete id="deleteBook">
         delete
             from tbl_book
         where
             book_id = #{bookId}
-
     </delete>
 </mapper>
