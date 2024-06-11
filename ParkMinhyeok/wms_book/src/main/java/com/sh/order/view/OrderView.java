@@ -27,6 +27,8 @@ public class OrderView {
                         메뉴를 선택해주세요.
                         1. 주문 생성
                         2. 주문 처리
+                        3. 주문 상태별 조회
+                        4. 주문 ID로 조회
                         0. 뒤로가기
                         ===========================================
                         """;
@@ -39,10 +41,35 @@ public class OrderView {
             case "2":
                 System.out.println("주문 처리");
                 break;
+            case "3":
+                findOrderByStatusMenu();
+                break;
+            case "4":
+                findOrderByIdMenu();
+                break;
             case "0":
                 return;
             default:
                 System.out.println("잘못된 입력입니다.");
+        }
+    }
+
+    private void findOrderByIdMenu() {
+        System.out.println("주문 id를 입력해주세요.");
+        int id = sc.nextInt();
+        OrderDto order = orderController.findOrderById(id);
+        OrderResultView.displayOrderById(order);
+    }
+
+    private void findOrderByStatusMenu() {
+        System.out.println("주문 상태를 입력해주세요. (주문확인중/배송준비중/발송롼료/배송중/배송완료/주문취소)");
+        String status = sc.next();
+        List<OrderDto> orderByStatusList = null;
+        try {
+            orderByStatusList = orderController.findOrderByStatus(Status.valueOf(status));
+            OrderResultView.displayOrderByStatus(orderByStatusList);
+        } catch (IllegalArgumentException e) {
+            System.out.println("잘못된 입력입니다.");
         }
     }
 
@@ -76,7 +103,7 @@ public class OrderView {
             int quantity = sc.nextInt();
 
             // orderItem 객체 처리
-            OrderItemDto orderItem = new OrderItemDto(0, 0, bookId, quantity);
+            OrderItemDto orderItem = new OrderItemDto(0, 0, bookId, quantity, null);
             orderItemList.add(orderItem);
 
             // 추가 주문 여부

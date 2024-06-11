@@ -6,11 +6,14 @@ import com.sh.order_item.model.dto.OrderItemDto;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.sh.common.MyBatisTemplate.getSqlSession;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OrderMapperTest {
@@ -75,5 +78,32 @@ class OrderMapperTest {
         assertEquals(1, result);
         assertNotNull(orderItem.getOrderItemId());
         System.out.println("Order Item ID: " + orderItem.getOrderItemId());
+    }
+    @DisplayName("Test find order by status")
+    @Test
+    void findOrderByStatus() {
+        // given
+        Status status = Status.valueOf("주문확인중");
+        // when
+        List<OrderDto> orderByStatusList = orderMapper.findOrderByStatus(status);
+        // then
+        assertThat(orderByStatusList).isNotNull();
+        for (OrderDto order : orderByStatusList) {
+            System.out.println(order);
+        }
+    }
+
+    @DisplayName("Test find order by id")
+    @Test
+    void findOrderById() {
+        // given
+        int id = 1;
+        // when
+        OrderDto order = orderMapper.findOrderById(id);
+        // then
+        assertThat(order).isNotNull();
+        assertThat(order.getOrderId()).isEqualTo(id);
+        assertThat(order.getOrderItemList()).isNotNull().isNotEmpty();
+//        System.out.println(order);
     }
 }

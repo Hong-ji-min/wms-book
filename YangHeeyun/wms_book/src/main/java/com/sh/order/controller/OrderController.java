@@ -1,8 +1,11 @@
 package com.sh.order.controller;
 
 import com.sh.order.model.dto.OrderDto;
+import com.sh.order.model.dto.Status;
 import com.sh.order.service.OrderService;
 import com.sh.order.view.OrderResultView;
+
+import java.util.List;
 
 public class OrderController {
     OrderService orderService = new OrderService();
@@ -14,5 +17,13 @@ public class OrderController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public List<OrderDto> findOrderByStatus(Status status) {
+        return orderService.findOrderByStatus(status);
+    }
+
+
+    public OrderDto findOrderById(int orderId) {
+        return orderService.findOrderById(orderId);
     }
 }

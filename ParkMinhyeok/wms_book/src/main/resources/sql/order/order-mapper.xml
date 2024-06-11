@@ -8,6 +8,19 @@
         <result column="orderer_name" property="ordererName"/>
         <result column="orderer_address" property="ordererAddress"/>
         <result column="order_date" property="orderDate"/>
+        <result column ="status" property="status"/>
+        <!-- 1:N관계의 테이블 행 매핑 -->
+        <collection property="orderItemList" ofType="orderItemDto">
+            <id column = "order_item_id" property="orderItemId"/>
+            <result column="order_id" property="orderId"/>
+            <result column="book_id" property="bookId"/>
+            <result column="quantity" property="quantity"/>
+            <!-- 1:1관계의 테이블 행 매핑 / book_id에 맞는 title 가져오기에 필요 -->
+            <association property="book" javaType="bookDto">
+                <id column = "book_id" property="bookId"/>
+                <result column = "title" property="title"/>
+            </association>
+        </collection>
     </resultMap>
 
     <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
@@ -25,4 +38,26 @@
         #{orderItemId}, #{orderId}, #{bookId}, #{quantity}
         )
     </insert>
+
+    <select id = "findOrderByStatus" resultMap="orderDtoMap">
+        select
+            *
+        from
+            tbl_order o
+                left join tbl_order_item oi using(order_id)
+                left join tbl_book b using(book_id)
+        where
+            status = #{status}
+    </select>
+
+    <select id = "findOrderById" resultMap = "orderDtoMap">
+        select
+            *
+        from
+            tbl_order o
+                left join tbl_order_item oi using(order_id)
+                left join tbl_book b on oi.book_id = b.book_id
+        where
+            o.order_id = #{orderId}
+    </select>
 </mapper>

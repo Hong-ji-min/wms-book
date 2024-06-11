@@ -2,8 +2,11 @@ package com.sh.order.model.service;
 
 import com.sh.order.model.dao.OrderMapper;
 import com.sh.order.model.dto.OrderDto;
+import com.sh.order.model.entity.Status;
 import com.sh.order_item.model.dto.OrderItemDto;
 import org.apache.ibatis.session.SqlSession;
+
+import java.util.List;
 
 import static com.sh.common.MyBatisTemplate.getSqlSession;
 
@@ -29,5 +32,28 @@ public class OrderService {
             sqlSession.close();
         }
         return result;
+    }
+    public List<OrderDto> findOrderByStatus(Status status) {
+        SqlSession sqlSession = getSqlSession();
+        OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+        try {
+            return orderMapper.findOrderByStatus(status);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public OrderDto findOrderById(int id) {
+        SqlSession sqlSession = getSqlSession();
+        OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+        try {
+            return orderMapper.findOrderById(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
+        }
     }
 }

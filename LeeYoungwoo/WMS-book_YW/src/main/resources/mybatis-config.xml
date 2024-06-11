@@ -24,5 +24,6 @@
     <mappers>
         <mapper resource="sql/menu/login-mapper.xml"/>
         <mapper resource="sql/menu/book-mapper.xml"/>
+        <mapper resource="sql/menu/order-mapper.xml"/>
     </mappers>
 </configuration>

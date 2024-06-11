@@ -1,5 +1,6 @@
 package com.sh.order.model.dto;
 
+import com.sh.book.model.dto.BookDto;
 import lombok.*;
 
 @NoArgsConstructor // 기본생성자
@@ -13,4 +14,5 @@ public class OrderItemDto {
     private int orderId;
     private int bookId;
     private int quantity;
+    private BookDto book;
 }

@@ -21,7 +21,8 @@ public class OrderView {
         =====================
         <주문 관리 메뉴 선택>
         1. 주문 생성
-        2. 주문 처리
+        2. 주문 상태별 조회
+        3. 주문번호 조회
         0. 뒤로가기
         =====================
         입력 : """;
@@ -30,11 +31,12 @@ public class OrderView {
             System.out.print(menu);
             String choice = sc.next();
             switch(choice){
-                case "1" :  insertOrder(); break;
-                case "2" :  break;
-                case "0" :  return;
+                case "1" : insertOrder(); break;
+                case "2" : findOrderByStatus(); break;
+                case "3" : findOrderById(); break;
+                case "0" : return;
                 default:
-                    System.out.println("잘못 입력하셨습니다.");
+                    System.out.println("잘못 입력하셨습니다.\n");
             }
         }
     }
@@ -58,7 +60,7 @@ public class OrderView {
             int quantity = sc.nextInt();
 
             // OrderItemDto객체 처리
-            OrderItemDto orderItemDto = new OrderItemDto(0,0, bookId, quantity);
+            OrderItemDto orderItemDto = new OrderItemDto(0,0, bookId, quantity,null);
             orderItemList.add(orderItemDto);
 
             // 추가주문 여부 선택
@@ -74,5 +76,29 @@ public class OrderView {
 
         orderController.insertOrder(orderDto);
         System.out.println("주문번호 : " + orderDto.getOrderId());
+    }
+
+    private void findOrderByStatus() {
+        System.out.println("주문 상태를 선택하세요 : (주문확인중/ 배송준비중/ 발송완료/ 배송완료/ 주문취소)");
+        String status = sc.next();
+        List<OrderDto> orderList = null;
+        try {
+            orderList = orderController.findOrderByStatus(Status.valueOf(status));
+            OrderResultView.displayOrderByStatus(orderList);
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌잘못된 입력입니다❌\n");
+        }
+
+//        System.out.println(orderList); // status가 null로 나옴
+    }
+
+    private void findOrderById() {
+        System.out.println("\n<주문번호 조회>");
+        System.out.print("> 조회할 주문번호 : ");
+        int orderId = sc.nextInt();
+
+        // OrderDto에 반환정보 담기
+        OrderDto orderDto = orderController.findOrderById(orderId);
+        OrderResultView.displayOrderById(orderDto);
     }
 }

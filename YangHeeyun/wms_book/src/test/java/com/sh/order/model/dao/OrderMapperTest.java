@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static com.sh.common.MyBatisTemplate.getSqlSession;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -74,5 +76,30 @@ class OrderMapperTest {
         assertThat(result2).isEqualTo(1);
         assertNotNull(orderItemDto.getOrderItemId());
         System.out.println("OrderItem ID: " + orderItemDto.getOrderItemId());
+    }
+
+    @DisplayName("주문번호로 주문 정보 조회")
+    @Test
+    void testFindOrderById() {
+        // given
+        int orderId = 1;
+        // when
+        OrderDto order = orderMapper.findOrderById(orderId);
+        // Then
+        assertThat(order).isNotNull();
+        assertThat(order.getOrderId()).isEqualTo(orderId);
+        assertThat(order.getOrderItemList()).isNotNull().isNotEmpty();
+    }
+
+    @DisplayName("주문번호로 주문 정보 조회")
+    @Test
+    void findOrderByStatus() {
+        // given
+        Status status = Status.valueOf("주문확인중");
+        // when
+        List<OrderDto> orderList = orderMapper.findOrderByStatus(status);
+        // Then
+        assertThat(orderList).isNotNull();
+        System.out.println(orderList);
     }
 }

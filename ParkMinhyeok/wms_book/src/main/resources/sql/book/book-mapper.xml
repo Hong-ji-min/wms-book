@@ -68,7 +68,7 @@
     </update>
 
     <delete id="deleteInventoryByBookId">
-        DELETE FROM tbl_inventory
+        DELETE FROM tbl_inventor
         WHERE book_id = #{bookId}
     </delete>
 
