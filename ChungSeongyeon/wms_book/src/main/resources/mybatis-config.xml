@@ -27,5 +27,6 @@
         <mapper resource="sql/user/user-mapper.xml"/>
         <mapper resource="sql/book/book-mapper.xml"/>
         <mapper resource="sql/order/order-mapper.xml"/>
+        <mapper resource="sql/inventory/inventory-mapper.xml"/>
     </mappers>
 </configuration>

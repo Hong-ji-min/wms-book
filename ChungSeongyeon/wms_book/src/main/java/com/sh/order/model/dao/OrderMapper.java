@@ -14,4 +14,6 @@ public interface OrderMapper {
 
     List<OrderDto> selectOrdersByStatus(@Param("status") OrderableStatus status);
     OrderDto selectOrderById(@Param("orderId") int orderId);
+
+    void updateOrderStatus(OrderDto order);
 }

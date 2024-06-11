@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.inventory.model.dao.InventoryMapper">
+    <resultMap id="inventoryDtoMap" type="com.sh.inventory.model.dto.InventoryDto">
+        <id column="inventory_id" property="inventoryId"/>
+        <result column="book_id" property="bookId"/>
+        <result column="quantity" property="quantity"/>
+        <result column="location" property="location"/>
+        <result column="last_updated" property="lastUpdated"/>
+    </resultMap>
+
+    <select id="selectInventoryByBookId" resultMap="inventoryDtoMap">
+        SELECT
+        inventory_id, book_id, quantity, location, last_updated
+        FROM tbl_inventory
+        WHERE book_id = #{bookId}
+        ORDER BY quantity DESC
+    </select>
+
+    <update id="updateInventoryQuantity">
+        UPDATE tbl_inventory
+        SET quantity = #{quantity}
+        WHERE inventory_id = #{inventoryId}
+    </update>
+</mapper>

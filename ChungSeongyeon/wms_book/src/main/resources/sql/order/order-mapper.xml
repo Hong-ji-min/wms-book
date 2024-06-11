@@ -54,4 +54,10 @@
         WHERE o.order_id = #{orderId}
     </select>
 
+    <update id="updateOrderStatus">
+        UPDATE tbl_order
+        SET status = #{status}
+        WHERE order_id = #{orderId}
+    </update>
+
 </mapper>
