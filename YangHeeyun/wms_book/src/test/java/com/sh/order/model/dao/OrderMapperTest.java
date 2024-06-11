@@ -4,10 +4,7 @@ import com.sh.order.model.dto.OrderDto;
 import com.sh.order.model.dto.OrderItemDto;
 import com.sh.order.model.dto.Status;
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 
@@ -49,7 +46,7 @@ class OrderMapperTest {
         int orderId = orderDto.getOrderId(); // 등록된 행의 pk컬럼 가져오기
         System.out.println("OrderId = " + orderId);
     }
-
+    @Disabled // auto commit안되는 어노테이션
     @DisplayName("주문 목록 생성")
     @Test
     void testInsertOrderItem() {
