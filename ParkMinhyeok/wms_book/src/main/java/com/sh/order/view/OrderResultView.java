@@ -6,23 +6,25 @@ import com.sh.order_item.model.dto.OrderItemDto;
 import java.util.List;
 
 public class OrderResultView {
-    public static void displayOrderById(OrderDto order) {
-        if(order == null)
+    public static void displayOrderById(List<OrderDto> orderList) {
+        if(orderList == null)
             System.out.println("주문번호가 존재하지 않습니다\n");
         else{
-            System.out.println("\n===== 주문정보 =====");
-            System.out.println("주문번호 : "+ order.getOrderId());
-            System.out.println("주문자 : "+ order.getOrdererName());
-            System.out.println("배송지 : "+ order.getOrdererAddress());
-            System.out.println("주문일 : "+ order.getOrderDate());
+            for (OrderDto order : orderList) {
+                System.out.println("\n===== 주문정보 =====");
+                System.out.println("주문번호 : " + order.getOrderId());
+                System.out.println("주문자 : " + order.getOrdererName());
+                System.out.println("배송지 : " + order.getOrdererAddress());
+                System.out.println("주문일 : " + order.getOrderDate());
 
-            System.out.println("\n===== 주문 목록 =====");
-            for(int i=0; i < order.getOrderItemList().size();i++){
-                OrderItemDto orderItemDto = order.getOrderItemList().get(i);
-                System.out.printf("%d. %s (도서번호 %d번) %d권\n",
-                        i+1,orderItemDto.getBook().getTitle(),orderItemDto.getBookId(),orderItemDto.getQuantity());
+                System.out.println("\n===== 주문 목록 =====");
+                for (int i = 0; i < order.getOrderItemList().size(); i++) {
+                    OrderItemDto orderItemDto = order.getOrderItemList().get(i);
+                    System.out.printf("%d. %s (도서번호 %d번) %d권\n",
+                            i + 1, orderItemDto.getBook().getTitle(), orderItemDto.getBookId(), orderItemDto.getQuantity());
+                }
+                System.out.println();
             }
-            System.out.println();
         }
     }
 

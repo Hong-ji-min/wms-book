@@ -45,7 +45,7 @@ public class OrderService {
         }
     }
 
-    public OrderDto findOrderById(int id) {
+    public List<OrderDto> findOrderById(int id) {
         SqlSession sqlSession = getSqlSession();
         OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
         try {

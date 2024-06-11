@@ -13,5 +13,5 @@ public interface OrderMapper {
 
     List<OrderDto> findOrderByStatus(Status status);
 
-    OrderDto findOrderById(int id);
+    List<OrderDto> findOrderById(int id);
 }

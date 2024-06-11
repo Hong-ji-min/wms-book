@@ -57,8 +57,8 @@ public class OrderView {
     private void findOrderByIdMenu() {
         System.out.println("주문 id를 입력해주세요.");
         int id = sc.nextInt();
-        OrderDto order = orderController.findOrderById(id);
-        OrderResultView.displayOrderById(order);
+        List<OrderDto> orderList = orderController.findOrderById(id);
+        OrderResultView.displayOrderById(orderList);
     }
 
     private void findOrderByStatusMenu() {
