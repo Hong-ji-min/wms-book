@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.inventory.model.dao.InventoryMapper">
+    <resultMap id="inventoryDtoMap" type="inventoryDto">
+        <id column="inventory_id" property="inventoryId"/>
+        <result column="book_id" property="bookId"/>
+    </resultMap>
+
+    <update id="updateInventory" parameterType="map">
+        UPDATE
+            tbl_inventory
+        SET
+            quantity = quantity - #{quantity}, last_updated = CURRENT_TIMESTAMP
+        WHERE
+            book_id = #{bookId}
+    </update>
+
+    <select id="checkQuantity" resultType="int">
+        select
+            quantity
+        from
+            tbl_inventory
+        where
+            book_id = #{bookId}
+    </select>
+</mapper>

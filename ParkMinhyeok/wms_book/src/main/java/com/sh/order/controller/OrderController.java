@@ -21,7 +21,7 @@ public class OrderController {
         return orderService.findOrderByStatus(status);
     }
 
-    public List<OrderDto> findOrderById(int id) {
+    public OrderDto findOrderById(int id) {
         return orderService.findOrderById(id);
     }
 }

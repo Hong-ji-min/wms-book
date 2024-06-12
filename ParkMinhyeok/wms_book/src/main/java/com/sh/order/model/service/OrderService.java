@@ -45,7 +45,7 @@ public class OrderService {
         }
     }
 
-    public List<OrderDto> findOrderById(int id) {
+    public OrderDto findOrderById(int id) {
         SqlSession sqlSession = getSqlSession();
         OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
         try {
@@ -54,6 +54,13 @@ public class OrderService {
             throw new RuntimeException(e);
         } finally {
             sqlSession.close();
+        }
+    }
+    public void updateOrderStatus(int orderId, Status status) {
+        try (SqlSession sqlSession = getSqlSession()) {
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+            orderMapper.updateOrderStatus(orderId, status);
+            sqlSession.commit();
         }
     }
 }
