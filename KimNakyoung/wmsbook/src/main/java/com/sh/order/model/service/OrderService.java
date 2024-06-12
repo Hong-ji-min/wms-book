@@ -1,6 +1,7 @@
 package com.sh.order.model.service;
 
 import com.sh.common.error.ErrorCode;
+import com.sh.order.model.dto.Status;
 import com.sh.order.model.exception.CreateOrderTransactionException;
 import com.sh.order.model.dao.OrderMapper;
 import com.sh.order.model.dto.OrderDto;
@@ -65,6 +66,22 @@ public class OrderService {
         OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
         try {
             return orderMapper.findOrderById(orderId);
+        } catch (Exception e) {
+            sqlSession.rollback();
+            throw new RuntimeException(e);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    // 주문 상태를 발송완료로 변경 updateOrderStatus
+
+    public void updateOrderStatus(int orderId, Status status) {
+        SqlSession sqlSession = getSqlSession();
+        OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+        try {
+            orderMapper.updateOrderStatus(orderId, status.toString());
+            sqlSession.commit();
         } catch (Exception e) {
             sqlSession.rollback();
             throw new RuntimeException(e);
