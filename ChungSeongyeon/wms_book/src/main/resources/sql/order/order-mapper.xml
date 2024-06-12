@@ -39,7 +39,7 @@
     <select id="selectOrdersByStatus" resultMap="orderDtoMap">
         SELECT
         o.order_id, o.orderer_name, o.orderer_address, o.order_date, o.status,
-        oi.order_item_id AS orderItemId, oi.order_id AS orderId, oi.book_id AS bookId, oi.quantity
+        oi.order_item_id, oi.order_id AS orderItemId, oi.book_id, oi.quantity
         FROM tbl_order o
         LEFT JOIN tbl_order_item oi ON o.order_id = oi.order_id
         WHERE o.status = #{status}
@@ -48,10 +48,16 @@
     <select id="selectOrderById" resultMap="orderDtoMap">
         SELECT
         o.order_id, o.orderer_name, o.orderer_address, o.order_date, o.status,
-        oi.order_item_id AS orderItemId, oi.order_id AS orderId, oi.book_id AS bookId, oi.quantity
+        oi.order_item_id, oi.order_id AS orderItemId, oi.book_id, oi.quantity
         FROM tbl_order o
         LEFT JOIN tbl_order_item oi ON o.order_id = oi.order_id
         WHERE o.order_id = #{orderId}
     </select>
+
+    <update id="updateOrderStatus">
+        UPDATE tbl_order
+        SET status = #{status}
+        WHERE order_id = #{orderId}
+    </update>
 
 </mapper>
