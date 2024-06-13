@@ -24,43 +24,47 @@
 <!--        FROM tbl_inventory-->
 <!--        WHERE book_id = #{bookId}-->
 <!--    </select>-->
-<!--    <resultMap id="InventoryDtoMap" type="inventoryDto">-->
-<!--        &lt;!&ndash; id - PK컬럼 매핑용 &ndash;&gt;-->
-<!--        <id column="order_id" property="orderId"/>-->
-<!--        &lt;!&ndash; result : 그외 컬럼 매핑용 &ndash;&gt;-->
-<!--        <result column="orderer_name" property="orderName"/>-->
-<!--        <result column="orderer_address" property="orderAddress"/>-->
-<!--        <result column="order_date" property="orderDate"/>-->
-<!--        <result column="status" property="status" javaType="com.sh.order.model.dto.Status" typeHandler="com.sh.order.model.typehandler.StatusTypeHandler"/>-->
+    <!-- 책 ID로 재고 정보를 가져오는 쿼리 -->
+    <select id="findByBookId" resultType="com.sh.Inventory.model.dto.InventoryDto" parameterType="int">
+        SELECT inventory_id, book_id, quantity, location, last_updated
+        FROM tbl_inventory
+        WHERE book_id = #{bookId}
+    </select>
+    <resultMap id="OrderDtoMap" type="com.sh.order.model.dto.OrderDto">
+        <!-- id - PK컬럼 매핑용 -->
+        <id column="order_id" property="orderId"/>
+        <!-- result : 그외 컬럼 매핑용 -->
+        <result column="orderer_name" property="orderName"/>
+        <result column="orderer_address" property="orderAddress"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="status" property="status" javaType="com.sh.order.model.dto.Status" typeHandler="com.sh.order.model.typehandler.StatusTypeHandler"/>
 
-<!--        &lt;!&ndash; 1:N 관계의 테이블 행 매핑 ofType : 실제 다루고 있는 타입&ndash;&gt;-->
-<!--        <collection property="orderItemList" ofType="orderItemDto">-->
-<!--            <id column="order_item_id" property="orderItemId"/>-->
-<!--            <result column="order_id" property="orderId"/>-->
-<!--            <result column="book_id" property="bookId"/>-->
-<!--            <result column="quantity" property="quantity"/>-->
+        <!-- 1:N 관계의 테이블 행 매핑 ofType : 실제 다루고 있는 타입 -->
+        <collection property="orderItemList" ofType="com.sh.order.model.dto.OrderItemDto">
+            <id column="order_item_id" property="orderItemId"/>
+            <result column="order_id" property="orderId"/>
+            <result column="book_id" property="bookId"/>
+            <result column="quantity" property="quantity"/>
 
-<!--            &lt;!&ndash; 1:1 관계의 테이블 행 매핑 &ndash;&gt;-->
-<!--            <association property="bookdto" javaType="bookDto">-->
-<!--                <id column="book_id" property="bookId"/>-->
-<!--                <result column="title" property="title"/>-->
-<!--                <result column="author" property="author"/>-->
-<!--                <result column="description" property="description"/>-->
-<!--                <result column="price" property="price"/>-->
-<!--                <result column="category" property="category"/>-->
-<!--                <result column="created_at" property="createdAt"/>-->
+            <!-- 1:1 관계의 테이블 행 매핑 -->
+            <association property="bookdto" javaType="com.sh.book.model.dto.BookDto">
+                <id column="book_id" property="bookId"/>
+                <result column="title" property="title"/>
+                <result column="author" property="author"/>
+                <result column="description" property="description"/>
+                <result column="price" property="price"/>
+                <result column="category" property="category"/>
+                <result column="created_at" property="createdAt"/>
 
-<!--                &lt;!&ndash; 새로 추가된 tbl_inventory와의 연관 관계 매핑 &ndash;&gt;-->
-<!--                <association property="inventory" javaType="inventoryDto">-->
-<!--                    <id column="inventory_id" property="inventoryId"/>-->
-<!--                    <result column="book_id" property="bookId"/>-->
-<!--                    <result column="quantity" property="quantity"/>-->
-<!--                    <result column="location" property="location"/>-->
-<!--                    <result column="last_updated" property="lastUpdated"/>-->
-<!--                </association>-->
-<!--            </association>-->
-<!--        </collection>-->
-<!--    </resultMap>-->
-
-
+                <!-- 새로 추가된 tbl_inventory와의 연관 관계 매핑 -->
+                <association property="inventory" javaType="com.sh.Inventory.model.dto.InventoryDto">
+                    <id column="inventory_id" property="inventoryId"/>
+                    <result column="book_id" property="bookId"/>
+                    <result column="quantity" property="quantity"/>
+                    <result column="location" property="location"/>
+                    <result column="last_updated" property="lastUpdated"/>
+                </association>
+            </association>
+        </collection>
+    </resultMap>
 </mapper>
