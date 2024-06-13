@@ -56,4 +56,11 @@ public class OrderService {
             sqlSession.close();
         }
     }
+    public void updateOrderStatus(int orderId, Status status) {
+        try (SqlSession sqlSession = getSqlSession()) {
+            OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+            orderMapper.updateOrderStatus(orderId, status);
+            sqlSession.commit();
+        }
+    }
 }

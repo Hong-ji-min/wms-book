@@ -104,6 +104,5 @@ class OrderMapperTest {
         assertThat(order).isNotNull();
         assertThat(order.getOrderId()).isEqualTo(id);
         assertThat(order.getOrderItemList()).isNotNull().isNotEmpty();
-//        System.out.println(order);
     }
 }

@@ -33,9 +33,9 @@
 
     <insert id="insertOrderItem">
         INSERT INTO
-        tbl_order_item (order_item_id, order_id, book_id, quantity)
+            tbl_order_item (order_item_id, order_id, book_id, quantity)
         VALUES (
-        #{orderItemId}, #{orderId}, #{bookId}, #{quantity}
+            #{orderItemId}, #{orderId}, #{bookId}, #{quantity}
         )
     </insert>
 
@@ -60,4 +60,13 @@
         where
             o.order_id = #{orderId}
     </select>
+    
+    <update id="updateOrderStatus">
+        update
+            tbl_order
+        set
+            status = #{status}
+        where
+            order_id = #{orderId}
+    </update>
 </mapper>
