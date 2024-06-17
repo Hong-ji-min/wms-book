@@ -17,6 +17,12 @@
         #{orderItemId}, #{orderId},#{bookId},#{quantity}
         )
     </insert>
+    <!--    주문 상태를 업데이트하는 쿼리-->
+    <update id="updateOrderStatus" parameterType="int">
+        UPDATE tbl_order
+        SET status = '발송완료'
+        WHERE order_id = #{orderId}
+    </update>
 
     <!-- 상태별 주문 목록 조회 -->
     <select id="findOrdersByStatus" parameterType="string" resultMap="orderDtoMap">

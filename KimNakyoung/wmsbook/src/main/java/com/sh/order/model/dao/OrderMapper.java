@@ -17,4 +17,7 @@ public interface OrderMapper {
 
     // 주문번호로 주문 정보 조회
     OrderDto findOrderById(int orderId);
+
+    // 주문 상태 업데이트
+    int updateOrderStatus(@Param("orderId") int orderId, @Param("status") String status);
 }

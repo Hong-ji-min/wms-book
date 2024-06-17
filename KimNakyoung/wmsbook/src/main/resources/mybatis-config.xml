@@ -16,7 +16,7 @@
                 <typeAlias type="com.sh.book.model.dto.BookDto" alias="bookDto"></typeAlias>
                 <typeAlias type="com.sh.order.model.dto.OrderDto" alias="orderDto"></typeAlias>
                 <typeAlias type="com.sh.order.model.dto.OrderItemDto" alias="orderItemDto"></typeAlias>
-                <typeAlias type="com.sh.inventory.model.dto.InventoryDto" alias="inventoryDto"></typeAlias>
+                <typeAlias type="com.sh.Inventory.model.dto.InventoryDto" alias="inventoryDto"></typeAlias>
 
 
         <!--        지정한 패키지 하위의 모든 클래스를 소문자로 시작하는 별칭으로 등록한다.-->

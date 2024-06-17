@@ -1,7 +1,6 @@
 package com.sh.Inventory.view;
 
 import com.sh.Inventory.controller.InventoryController;
-import com.sh.Inventory.model.dto.InventoryDto;
 import com.sh.order.controller.OrderController;
 import com.sh.order.model.dto.OrderDto;
 import com.sh.order.model.dto.OrderItemDto;
@@ -46,7 +45,8 @@ public class InventoryView {
                     System.out.println("재고 입고합니다.");
                     break;
                 case "3" :
-                    System.out.println("재고 출고합니다.");
+//                    System.out.println("재고 출고합니다.");
+                    ObInventory();
                     break;
                 case "4" :
                     System.out.println("재고 이동합니다.");
@@ -77,23 +77,15 @@ public class InventoryView {
             int orderId = sc.nextInt();
             sc.nextLine(); // 개행버리기
             // 선택된 주문번호의 출고처리
-            InventoryDto inventoryDto = inventoryController.ObInventory(orderId);
-            if (inventoryDto == null) {
+            boolean success = inventoryController.ObInventory(orderId);
+            if (success) {
+                System.out.println("출고가 완료되었습니다.");
+                return;
+            } else {
                 System.out.println("해당 상태의 주문이 없습니다.");
                 return;
             }
-
-
-            //    모든 출고가 정상적으로 처리된 경우, 해당 주문의 상태는 발송완료로 변경되어야 합니다.
-
-
-
-
-
         }
-
-
-
     }
 
     //
