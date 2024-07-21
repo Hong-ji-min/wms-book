@@ -2,7 +2,6 @@ package com.sh.book.controller;
 
 import com.sh.book.model.dto.BookDto;
 import com.sh.book.model.service.BookService;
-
 import java.util.List;
 
 public class BookController {
@@ -20,4 +19,15 @@ public class BookController {
         return bookService.searchBookByCriteria(title, author, category, price);
     }
 
+    public int insertBook(BookDto book) {
+        return bookService.insertBook(book);
+    }
+
+    public int updateBook(BookDto book) {
+        return bookService.updateBook(book);
+    }
+
+    public int deleteBook(int bookId) {
+        return bookService.deleteBook(bookId);
+    }
 }

@@ -19,4 +19,5 @@ public interface BookMapper {
     int deleteBook(int bookId); // 테스트 삽입한거 삭제용 메서드
     int updateBook(BookDto bookDto);
 
+    List<BookDto> findByBookIdList(int bookId);
 }

@@ -1,6 +1,7 @@
 package com.sh.common;
 
-import user.model.entity.User;
+
+import com.sh.user.model.entity.User;
 
 public class AuthManager {
 

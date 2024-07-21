@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.order.model.dao.OrderMapper">
+    <resultMap id="orderDtoMap" type="com.sh.order.model.dto.OrderDto">
+        <!-- PK 컬럼 매핑 -->
+        <id column="order_id" property="orderId"/>
+        <!-- 그 외 컬럼 매핑 -->
+        <result column="orderer_name" property="ordererName"/>
+        <result column="orderer_address" property="ordererAddress"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="status" property="status"/>
+        <!-- 1:N 관계의 테이블 행 매핑 -->
+        <collection property="orderItems" ofType="com.sh.order.model.dto.OrderItemDto">
+            <id column="order_item_id" property="orderItemId"/>
+            <result column="order_id" property="orderId"/>
+            <result column="book_id" property="bookId"/>
+            <result column="quantity" property="quantity"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO
+        tbl_order (orderer_name, orderer_address, order_date, status)
+        VALUES (
+        #{ordererName}, #{ordererAddress}, now(), #{status}
+        )
+    </insert>
+
+    <insert id="insertOrderItem">
+        INSERT INTO
+        tbl_order_item (order_item_id, order_id, book_id, quantity)
+        VALUES (
+        #{orderItemId}, #{orderId}, #{bookId}, #{quantity}
+        )
+    </insert>
+
+    <select id="selectOrdersByStatus" resultMap="orderDtoMap">
+        SELECT
+        o.order_id, o.orderer_name, o.orderer_address, o.order_date, o.status,
+        oi.order_item_id, oi.order_id AS orderItemId, oi.book_id, oi.quantity
+        FROM tbl_order o
+        LEFT JOIN tbl_order_item oi ON o.order_id = oi.order_id
+        WHERE o.status = #{status}
+    </select>
+
+    <select id="selectOrderById" resultMap="orderDtoMap">
+        SELECT
+        o.order_id, o.orderer_name, o.orderer_address, o.order_date, o.status,
+        oi.order_item_id, oi.order_id AS orderItemId, oi.book_id, oi.quantity
+        FROM tbl_order o
+        LEFT JOIN tbl_order_item oi ON o.order_id = oi.order_id
+        WHERE o.order_id = #{orderId}
+    </select>
+
+    <update id="updateOrderStatus">
+        UPDATE tbl_order
+        SET status = #{status}
+        WHERE order_id = #{orderId}
+    </update>
+
+</mapper>

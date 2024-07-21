@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Data
@@ -20,6 +21,17 @@ public class OrderDto {
     private Timestamp orderDate; // 주문 일자
     private Status status; // 주문 상태 관리 enum // 주문처리때 쓸듯
     // enum("주문확인중,"배송준비중","발송완료","배송중","배송완료","주문취소")
+
+    /**
+     *
+     * PK 넣기 컬렉션 리스트 사용 ( 1:N관계 객체지향에서는 이렇게 표현)
+     *
+     */
+
+    private List<OrderItemDto> orderItemList;
+
+
+
 
 
 

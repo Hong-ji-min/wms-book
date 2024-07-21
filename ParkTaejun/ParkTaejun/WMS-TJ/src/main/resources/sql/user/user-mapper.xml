@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="user.model.dao.UserMapper">
-    <select id="login" resultType="user.model.entity.User">
+<mapper namespace="com.sh.user.model.dao.UserMapper">
+    <select id="login" resultType="User">
         select
         *
         from

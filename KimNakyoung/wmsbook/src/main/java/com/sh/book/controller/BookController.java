@@ -55,4 +55,11 @@ public class BookController {
         BookResultView.displayResult("도서 수정",result);
 
     }
+
+    public List<BookDto> findByBookIdList(int bookId) {
+        List<BookDto> list = bookService.findByBookIdList(bookId);
+        BookResultView.displayBookList(list,"도서코드 : "+ bookId + "의 목록입니다.");
+        return list;
+    }
+    // 리스트로 반환하자.
 }

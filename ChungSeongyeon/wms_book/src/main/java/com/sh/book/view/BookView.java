@@ -3,7 +3,6 @@ package com.sh.book.view;
 import com.sh.book.controller.BookController;
 import com.sh.book.model.dto.BookDto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,7 +15,8 @@ public class BookView {
                 [도서 관리 메뉴 선택]
                  1. 도서 정보 등록
                  2. 도서 정보 수정
-                 3. 도서 목록 조회 및 검색
+                 3. 도서 정보 삭제
+                 4. 도서 목록 조회 및 검색
                  0. 뒤로 가기
                 """;
         while (true) {
@@ -24,14 +24,15 @@ public class BookView {
             String choice = sc.next();
             switch (choice) {
                 case "1":
-                    System.out.println("도서 정보 등록");
-                    // 등록 기능 구현
+                    insertBook();
                     break;
                 case "2":
-                    System.out.println("도서 정보 수정");
-                    // 수정 기능 구현
+                    updateBook();
                     break;
                 case "3":
+                    deleteBook();
+                    break;
+                case "4":
                     displayBookMenu();
                     break;
                 case "0":
@@ -44,7 +45,6 @@ public class BookView {
 
     private void displayBookMenu() {
         String menu = """
-                
                 =================
                 1. 전체 도서 조회
                 2. 도서 아이디로 조회
@@ -133,4 +133,52 @@ public class BookView {
         }
     }
 
+    private void insertBook() {
+        System.out.println("--[도서 등록]--");
+        System.out.print("> 도서명 입력 : ");
+        sc.nextLine(); // Consume newline
+        String title = sc.nextLine();
+        System.out.print("> 저자 입력 : ");
+        String author = sc.next();
+        sc.nextLine(); // Consume newline
+        System.out.print("> 설명 입력 : ");
+        String description = sc.nextLine();
+        System.out.print("> 가격 입력 :");
+        int price = sc.nextInt();
+        sc.nextLine(); // Consume newline
+        System.out.print("> 카테고리 입력 : ");
+        String category = sc.next();
+        BookDto book = new BookDto(0, title, author, description, price, category, null);
+        bookController.insertBook(book);
+    }
+
+    private void updateBook() {
+        System.out.println("--[도서 정보 수정]--");
+        System.out.print("> 수정할 도서 ID 입력  : ");
+        int bookId = sc.nextInt();
+        sc.nextLine(); // Consume newline
+        System.out.print("> 도서명 입력 : ");
+        String title = sc.next();
+        sc.nextLine(); // Consume newline
+        System.out.print("> 저자 입력 : ");
+        String author = sc.next();
+        sc.nextLine(); // Consume newline
+        System.out.print("> 설명 입력 : ");
+        String description = sc.nextLine();
+        System.out.print("> 가격 입력 :");
+        int price = sc.nextInt();
+        sc.nextLine(); // Consume newline
+        System.out.print("> 카테고리 입력 : ");
+        String category = sc.next();
+        BookDto book = new BookDto(bookId, title, author, description, price, category, null);
+        bookController.updateBook(book);
+    }
+
+    private void deleteBook() {
+        System.out.println("--[도서 정보 삭제]--");
+        System.out.print("> 삭제할 도서 아이디 입력: ");
+        int bookId = sc.nextInt();
+        bookController.deleteBook(bookId);
+        System.out.println("✅ 도서가 삭제되었습니다.");
+    }
 }

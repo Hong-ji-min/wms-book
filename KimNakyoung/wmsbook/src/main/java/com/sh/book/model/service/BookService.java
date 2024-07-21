@@ -120,14 +120,12 @@ public List<BookDto> findByAuthor(String author){
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    // 주문할때 bookId로 목록 보기 list
+    public List<BookDto> findByBookIdList(int bookId) {
+        SqlSession sqlSession = getSqlSession();
+        BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);
+        List<BookDto> list = bookMapper.findByBookIdList(bookId);
+        sqlSession.close();
+        return list;
+    }
 }

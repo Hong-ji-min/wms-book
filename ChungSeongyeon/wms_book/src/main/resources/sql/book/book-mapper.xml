@@ -35,4 +35,24 @@
         </where>
     </select>
 
+    <insert id="insertBook" useGeneratedKeys="true">
+        insert into tbl_book
+        values(null, #{title}, #{author}, #{description}, #{price}, #{category}, now())
+    </insert>
+
+
+    <update id="updateBook" parameterType="com.sh.book.model.dto.BookDto">
+        UPDATE tbl_book
+        SET title = #{title},
+        author = #{author},
+        description = #{description},
+        price = #{price},
+        category = #{category}
+        WHERE book_id = #{bookId}
+    </update>
+
+    <delete id="deleteBook" parameterType="int">
+        DELETE FROM tbl_book
+        WHERE book_id = #{bookId}
+    </delete>
 </mapper>

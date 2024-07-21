@@ -6,6 +6,10 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="True"/>
     </settings>
+    <typeAliases>
+        <!-- 지정한 패키지 하위의 모든 클래스를 소문자로 시작하는 별칭으로 등록한다 -->
+        <package name="com.sh"/>
+    </typeAliases>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -19,5 +23,7 @@
     </environments>
     <mappers>
         <mapper resource="sql/menu/login-mapper.xml"/>
+        <mapper resource="sql/menu/book-mapper.xml"/>
+        <mapper resource="sql/menu/order-mapper.xml"/>
     </mappers>
 </configuration>

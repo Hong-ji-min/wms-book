@@ -1,4 +1,4 @@
-import user.view.UserView;
+import com.sh.user.view.UserView;
 
 public class Main {
     public static void main(String[] args) {

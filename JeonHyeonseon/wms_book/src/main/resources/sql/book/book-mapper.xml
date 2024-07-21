@@ -17,4 +17,61 @@
         where
             book_id = #{bookId}
     </select>
+    <select id="findByTitle" resultType="bookDto">
+        select
+            *
+        from
+            tbl_book
+        where
+            title = #{title}
+    </select>
+    <select id="findByAuthor" resultType="bookDto">
+        select
+            *
+        from
+            tbl_book
+        where
+            author = #{author}
+    </select>
+    <select id="findByCategory" resultType="bookDto">
+        select
+            *
+        from
+            tbl_book
+        where
+            category = #{category}
+    </select>
+    <select id="findByPrice" resultType="bookDto">
+        select
+            *
+        from
+            tbl_book
+        where
+            price = #{price}
+    </select>
+    <insert id="insertBook" useGeneratedKeys="true" keyProperty="bookId">
+        insert into
+            tbl_book
+        values (
+            null, #{title}, #{author}, #{description}, #{price}, #{category}, NOW()
+        )
+    </insert>
+    <update id="updateBook">
+        update
+            tbl_book
+        set
+            title = #{title},
+            author = #{author},
+            description = #{description},
+            price = #{price},
+            category = #{category}
+        where
+            book_id = #{bookId}
+    </update>
+    <delete id="deleteBook">
+        delete from
+            tbl_book
+        where
+            book_id = #{bookId}
+    </delete>
 </mapper>

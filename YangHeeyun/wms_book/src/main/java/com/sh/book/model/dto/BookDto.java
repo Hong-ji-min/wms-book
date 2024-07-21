@@ -22,15 +22,12 @@ public class BookDto {
 
     @Override
     public String toString() {
-        return "[" +
-                "도서 id = " + bookId +
-                ", 도서명 = '" + title + '\'' +
-                ", 저자 = '" + author + '\'' +
-                ", 설명 = '" + description + '\'' +
-                ", 가격 = " + price +
-                ", 카테고리 ='" + category + '\'' +
-                ", 등록일자 = " + createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +
-                ']';
+        return "BookDto{" +
+                "bookId=" + bookId +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", createdAt=" + (createdAt != null ? createdAt.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : "null") +
+                '}';
     }
 }
 

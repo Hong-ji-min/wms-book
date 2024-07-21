@@ -18,5 +18,5 @@ public class OrderDto {
     private String ordererAddress;
     private LocalDateTime orderDate;
     private Status status;
-    public List<OrderItemDto> orderItemList;
+    private List<OrderItemDto> orderItemList;
 }

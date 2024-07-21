@@ -56,5 +56,10 @@
         where
         book_id = #{bookId}
     </update>
+    <select id="findByBookIdList" parameterType="map" resultType="BookDto">
+        select *
+        from tbl_book
+        where book_id = #{bookId} ;
+    </select>
 
 </mapper>

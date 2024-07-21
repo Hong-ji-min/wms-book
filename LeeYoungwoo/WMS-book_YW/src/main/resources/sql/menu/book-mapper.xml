@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sh.book.model.dao.BookMapper">
+    <resultMap id="bookDtoMap" type="bookDto">
+        <id column="book_id" property="bookId"/>
+        <result column="title" property="title"/>
+        <result column="author" property="author"/>
+        <result column="description" property="description"/>
+        <result column="price" property="price"/>
+        <result column="category" property="category"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+    <select id="findAll" resultType="bookDto">
+        select
+            *
+        from
+            tbl_book
+    </select>
+
+    <select id="findByBookId" resultType="bookDto">
+        select
+            *
+        from
+            tbl_book
+        where
+            book_id = #{bookId}
+    </select>
+
+    <select id="searchMenu" resultMap="bookDtoMap">
+        select
+            *
+        from
+            tbl_book
+        <where>
+            <if test="name == 'title'">
+                and title like concat('%', #{value}, '%')
+            </if>
+            <if test="name == 'author'">
+                and author = #{value}
+            </if>
+            <if test="name == 'category'">
+                and category = #{value}
+            </if>
+            <if test="name == 'price'">
+                and price between #{start} and #{end}
+            </if>
+        </where>
+    </select>
+    
+    <insert id="insertBook" useGeneratedKeys="true" keyProperty="bookId">
+        insert into
+            tbl_book
+        values (
+        null, #{title}, #{author}, #{description}, #{price}, #{category}, now())
+    </insert>
+
+    <update id="updateBook">
+        update
+            tbl_book
+        set
+            title = #{title},
+            author = #{author},
+            description = #{description},
+            price = #{price},
+            category = #{category}
+        where
+            book_id = #{bookId}
+    </update>
+
+    <delete id="deleteBook">
+        delete from
+            tbl_book
+        where
+            book_id = #{bookId}
+    </delete>
+</mapper>

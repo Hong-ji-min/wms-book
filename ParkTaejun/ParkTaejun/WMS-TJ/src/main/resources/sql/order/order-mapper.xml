@@ -2,20 +2,62 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="order.model.dao.OrderMapper">
-<insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
-    insert into
-        tbl_order (orderer_name, orderer_address, order_date, status)
-    values (
-            #{orderName}, #{orderAddress}, NOW(), #{status}
-    )
-</insert>
-    <insert id="insertOrderItem">
+<mapper namespace="com.sh.order.model.dao.OrderMapper">
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId">
         insert into
-            tbl_order_item( order_id, book_id, quantity)
+        tbl_order (orderer_name, orderer_address, order_date, status)
         values (
-                #{orderId}, #{bookId}, #{quantity}
+        #{orderName}, #{orderAddress}, NOW(), #{status}
         )
     </insert>
+    <insert id="insertOrderItem">
+        insert into
+        tbl_order_item( order_id, book_id, quantity)
+        values (
+        #{orderId}, #{bookId}, #{quantity}
+        )
+    </insert>
+    <select id="findOrder" resultMap="orderDtoMap">
+        SELECT *
+        FROM
+        TBL_ORDER t1
+        LEFT JOIN TBL_ORDER_ITEM t2
+        ON t1.ORDER_ID = t2.ORDER_ID
+        LEFT JOIN TBL_BOOK tb
+        ON t2.BOOK_ID = tb.BOOK_ID
+        where t1.ORDER_ID = #{orderId}
+
+    </select>
+
+
+    <resultMap id="orderDtoMap" type="Order">
+        <!--        pk 값을 표현해 주기 위함임-->
+        <id column="order_id" property="orderId"/>
+
+        <!--        그 외의 컬럼들 표현 -->
+        <result column="orderer_name" property="orderName"/>
+        <result column="orderer_address" property="orderAddress"/>
+        <result column="order_date" property="orderDate"/>
+        <result column="status" property="status"/>
+        <!--        이 값은 1 : N 관계를 매핑-->
+        <collection property="orderItems" ofType="orderItem">
+            <id column="order_item_id" property="orderItemId"/>
+            <id column="order_id" property="orderId"/>
+            <id column="book_id" property="bookId"/>
+            <result column="quantity" property="quantity"/>
+            <!--        이 값은 1 :1 관계를 매핑하기 위함임-->
+            <association property="book" javaType="Book">
+                <id column="book_id" property="bookId"/>
+                <result column="title" property="title"/>
+                <result column="author" property="author"/>
+                <result column="description" property="description"/>
+                <result column="price" property="price"/>
+                <result column="category" property="category"/>
+                <result column="created_at" property="createdAt"/>
+
+            </association>
+        </collection>
+    </resultMap>
+
 
 </mapper>

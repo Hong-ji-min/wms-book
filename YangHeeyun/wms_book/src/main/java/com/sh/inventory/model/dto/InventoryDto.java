@@ -15,5 +15,5 @@ public class InventoryDto {
     private int bookId;
     private int quantity;
     private String location;
-    private LocalDateTime last_updated;
+    private LocalDateTime lastUpdated;
 }
